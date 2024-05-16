@@ -27,7 +27,7 @@ import wandb
 
 wandb.init()
 wandb.login()
-wandb.sagemaker_auth(path="scripts")
+wandb.sagemaker_auth(path="src")
 ```
 
 # Create sagemaker pipeline for training model
