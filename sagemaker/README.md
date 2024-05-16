@@ -32,6 +32,6 @@ wandb.sagemaker_auth(path="scripts")
 
 # Create sagemaker pipeline for training model
 
-Run [sagemaker-a10.ipynb](/sagemaker-a10.ipynb)
+Run [sagemaker-a10.ipynb](/sagemaker/sagemaker-a10.ipynb)
 
 
