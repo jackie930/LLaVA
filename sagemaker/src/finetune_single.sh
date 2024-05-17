@@ -1,11 +1,12 @@
 #!/bin/bash
 
+#todo: fix input data_path/image_folder as input
 deepspeed llava/train/train_mem.py \
     --deepspeed ./scripts/zero3_offload.json \
     --model_name_or_path $MODEL_NAME_OR_PATH \
     --version v1 \
-    --data_path  /opt/ml/input/data/train/llava_mini.json \
-    --image_folder /opt/ml/input/data/train/imgs \
+    --data_path  $DATA_PATH \
+    --image_folder $IMAGE_FOLDER \
     --vision_tower openai/clip-vit-large-patch14-336 \
     --mm_projector_type mlp2x_gelu \
     --mm_vision_select_layer -2 \

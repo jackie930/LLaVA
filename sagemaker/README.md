@@ -10,7 +10,12 @@
 在Amazon SageMaker上开启一个notebook环境
 
 # 准备数据
-[todo]
+Run [preprocess.py](/sagemaker/data/preprocess.py)
+```shell
+!python data/preprocess.py \
+--data_path {yourexcel} \
+--output_folder {outputjson}
+```
 
 将数据准备为如下格式
 ```plain
