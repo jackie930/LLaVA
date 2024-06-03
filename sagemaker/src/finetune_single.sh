@@ -1,5 +1,8 @@
 #!/bin/bash
 
+echo epoch is $EPOCH
+
+#todo: fix num_train_epochs
 #todo: fix input data_path/image_folder as input
 deepspeed llava/train/train_mem.py \
     --deepspeed ./scripts/zero3_offload.json \

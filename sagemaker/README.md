@@ -40,3 +40,49 @@ wandb.sagemaker_auth(path="src")
 Run [sagemaker-a10.ipynb](/sagemaker/sagemaker-a10.ipynb)
 
 
+# inference
+
+## local inference
+todo: fix bug for llava1.6
+
+* 首先创建对应的推理环境, `cd sagemaker/src`
+
+```shell
+pip install --upgrade pip  # enable PEP 660 support
+pip install -e .
+pip install -e ".[train]"
+pip install flash-attn --no-build-isolation
+```
+
+* 运行推理脚本
+```shell
+!python inference/local_infer_kl.py \
+--test_json_file {testfile} \
+--model_dir {model_dir}
+```
+
+* 运行环境: ml.g5.12xlarge, 推理512张图片耗时 8min, accuracy 84%, 成本大约 $5.672/h * 5334h = $30k(ec2), $7.09/h * 5334h = $38k(sagemaker)  llava1.5-13b
+* 运行环境: ml.g5.4xlarge, 推理512张图片耗时 16min, accuracy 85%, 成本大约 $1.624/h * 10667h = $17k(ec2), $2.03/h * 10667h= $22k(sagemaker)  llava1.5-13b (4bit)
+
+### inference speed up
+* 4bit
+```python
+model = LlavaForConditionalGeneration.from_pretrained(
+    model_id,
+    torch_dtype=torch.float16,
+    low_cpu_mem_usage=True,
++   load_in_4bit=True
+```
+
+* use_flash_attention_2=True
+```python
+model = LlavaForConditionalGeneration.from_pretrained(
+    model_id,
+    torch_dtype=torch.float16,
+    low_cpu_mem_usage=True,
++   use_flash_attention_2=True
+```
+* sglang
+* vllm
+
+
