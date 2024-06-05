@@ -18,7 +18,7 @@ from llava.constants import (
 from llava.conversation import conv_templates, SeparatorStyle
 
 from tqdm import tqdm
-
+import time
 
 def model_fn(model_dir, use_flash_attention_2=False, load_in_4bit=False):
     kwargs = {"device_map": "auto"}
@@ -128,6 +128,7 @@ def main(model_dir,test_json_file, save_file_name, use_flash_attention_2, load_i
         data = json.load(f)
 
     output_folder = os.path.dirname(test_json_file)
+    start_time = time.time()
     #loop over test files
     for i in tqdm(data):
         image_file = os.path.join(output_folder,i['image'])
@@ -142,6 +143,11 @@ def main(model_dir,test_json_file, save_file_name, use_flash_attention_2, load_i
                      'gen_title': res}
 
         res_ls.append(res_dict)
+
+    end_time = time.time()
+    elapsed_time_in_seconds = end_time - start_time
+    elapsed_time_in_minutes = elapsed_time_in_seconds / 60 / len(data) * 1000
+    print(f"Code block took {elapsed_time_in_minutes:.2f} minutes to execute 1000 images")
 
     #output_test
     with open(os.path.join(output_folder, save_file_name), 'w', encoding='utf-8') as f:

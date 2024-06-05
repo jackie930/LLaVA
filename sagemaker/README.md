@@ -43,7 +43,6 @@ Run [sagemaker-a10.ipynb](/sagemaker/sagemaker-a10.ipynb)
 # inference
 
 ## local inference
-todo: fix bug for llava1.6
 
 * 首先创建对应的推理环境, `cd sagemaker/src`
 
@@ -61,8 +60,15 @@ pip install flash-attn --no-build-isolation
 --model_dir {model_dir}
 ```
 
-* 运行环境: ml.g5.12xlarge, 推理512张图片耗时 8min, accuracy 84%, 成本大约 $5.672/h * 5334h = $30k(ec2), $7.09/h * 5334h = $38k(sagemaker)  llava1.5-13b
-* 运行环境: ml.g5.4xlarge, 推理512张图片耗时 16min, accuracy 85%, 成本大约 $1.624/h * 10667h = $17k(ec2), $2.03/h * 10667h= $22k(sagemaker)  llava1.5-13b (4bit)
+| 模型                      |             机型 | 精度  |     成本(sagemaker)      |          成本(ec2)          |
+|:------------------------|---------------:|:---:|:----------------------:|:-------------------------:|
+| llava1.5-13b            | ml.g5.12xlarge | 84% | $7.09/h * 5334h = $38k |  $5.672/h * 5334h = $30k  |
+| llava1.5-13b-4bit       |  ml.g5.4xlarge | 85% | $2.03/h * 10667h= $22k | $1.624/h * 10667h = $17k  |
+| llava1.5-13b-4bit       |  ml.g5.2xlarge | 85% | $1.53/h * 10667h= $16k | $1.1212/h * 10667h = $12k |
+| llava1.5-7b             |   ml.g5.xlarge | 82% |           NA           |            NA             |
+| llava1.6-mistral 7b     |  ml.g5.4xlarge | 62% |           NA           |            NA             |
+| llava1.6-vicuna13b-4bit |  ml.g5.4xlarge | 83% |           NA           |            NA             |
+
 
 ### inference speed up
 * 4bit
@@ -85,4 +91,5 @@ model = LlavaForConditionalGeneration.from_pretrained(
 * sglang
 * vllm
 
-
+# inference: SageMaker endpoint
+Run [deploy_llava.ipynb](/sagemaker/deploy_backup/deploy_llava.ipynb)
