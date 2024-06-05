@@ -37,7 +37,7 @@ wandb.sagemaker_auth(path="src")
 
 # Create sagemaker training job for training model
 
-Run [sagemaker-a10.ipynb](/sagemaker/sagemaker-a10.ipynb)
+Run [sagemaker-a100-kl-v2.ipynb](/sagemaker/sagemaker-a100-kl-v2.ipynb)
 
 
 # inference
@@ -92,4 +92,5 @@ model = LlavaForConditionalGeneration.from_pretrained(
 * vllm
 
 # inference: SageMaker endpoint
-Run [deploy_llava.ipynb](/sagemaker/deploy_backup/deploy_llava.ipynb)
+Run [deploy_llava.ipynb](/sagemaker/deploy_source/deploy_llava.ipynb)
+Run [local_llava_infer.ipynb](/sagemaker/deploy_source/local_llava_infer.ipynb)
