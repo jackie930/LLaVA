@@ -19,7 +19,6 @@ from llava.constants import (
 
 
 def model_fn(model_dir):
-    '''
     kwargs = {"device_map": "auto"}
     kwargs["torch_dtype"] = torch.float16
     model = LlavaLlamaForCausalLM.from_pretrained(
@@ -36,7 +35,7 @@ def model_fn(model_dir):
 
     tokenizer, model, image_processor, context_len = load_pretrained_model(
         model_dir, model_base=None, model_name="llava", load_4bit=True, device_map='auto',torch_dtype=torch.float16)
-
+    '''
     return model, tokenizer, image_processor
 
 
@@ -96,12 +95,13 @@ def predict_fn(data, model_and_tokenizer):
         output_ids = model.generate(
             input_ids,
             images=image_tensor,
-            do_sample=True,
-            temperature=temperature,
+           # do_sample=True,
+           # temperature=temperature,
             max_new_tokens=max_new_tokens,
-            use_cache=True,
-            stopping_criteria=[stopping_criteria],
+            #use_cache=True,
+            #stopping_criteria=[stopping_criteria],
         )
+
     outputs = tokenizer.decode(
         output_ids[0, input_ids.shape[1] :], skip_special_tokens=True
     ).strip()
