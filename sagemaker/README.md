@@ -83,4 +83,4 @@ model = LlavaForConditionalGeneration.from_pretrained(
 ### inference: SageMaker endpoint
 
 * inference llava1.5-13b on g5.12x, use huggingface container: Run [deploy_llava.ipynb](/sagemaker/deploy_source/deploy_llava.ipynb)
-* inference llava1.5-13b-4bit on g5.2x, use djl container: Run [02-llava-sagemaker-endpoint.ipynb](/sagemaker/deploy_djl/02-llava-sagemaker-endpoint.ipynb)
+* inference llava1.5-13b-4bit on g5.2x, use djl container: Run [llava-sagemaker-endpoint.ipynb](/sagemaker/deploy_djl/llava-sagemaker-endpoint.ipynb)
