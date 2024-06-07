@@ -60,14 +60,13 @@ pip install flash-attn --no-build-isolation
 --model_dir {model_dir}
 ```
 
-| 模型                      |             机型 | 精度  |     成本(sagemaker)      |          成本(ec2)          |
-|:------------------------|---------------:|:---:|:----------------------:|:-------------------------:|
-| llava1.5-13b            | ml.g5.12xlarge | 84% | $7.09/h * 5334h = $38k |  $5.672/h * 5334h = $30k  |
-| llava1.5-13b-4bit       |  ml.g5.4xlarge | 85% | $2.03/h * 10667h= $22k | $1.624/h * 10667h = $17k  |
-| llava1.5-13b-4bit       |  ml.g5.2xlarge | 85% | $1.53/h * 10667h= $16k | $1.1212/h * 10667h = $12k |
-| llava1.5-7b             |   ml.g5.xlarge | 82% |           NA           |            NA             |
-| llava1.6-mistral 7b     |  ml.g5.4xlarge | 62% |           NA           |            NA             |
-| llava1.6-vicuna13b-4bit |  ml.g5.4xlarge | 83% |           NA           |            NA             |
+| 模型                      |             机型 | 精度  |  成本(sagemaker) /2kw张   |      成本(ec2) /2kw张      |
+|:------------------------|---------------:|:---:|:----------------------:|:-----------------------:|
+| llava1.5-13b            | ml.g5.12xlarge | 84% | $7.09/h * 5334h = $38k | $5.672/h * 5334h = $30k |
+| llava1.5-13b-4bit       |  ml.g5.2xlarge | 85% | $1.53/h * 5556= $8.5k  | $1.1212/h * 5556h = $6k |
+| llava1.5-7b             |   ml.g5.xlarge | 82% |           NA           |           NA            |
+| llava1.6-mistral 7b     |  ml.g5.4xlarge | 62% |           NA           |           NA            |
+| llava1.6-vicuna13b-4bit |  ml.g5.4xlarge | 83% |           NA           |           NA            |
 
 
 ### inference speed up
@@ -78,19 +77,10 @@ model = LlavaForConditionalGeneration.from_pretrained(
     torch_dtype=torch.float16,
     low_cpu_mem_usage=True,
 +   load_in_4bit=True
-```
-
-* use_flash_attention_2=True
-```python
-model = LlavaForConditionalGeneration.from_pretrained(
-    model_id,
-    torch_dtype=torch.float16,
-    low_cpu_mem_usage=True,
 +   use_flash_attention_2=True
 ```
-* sglang
-* vllm
 
-# inference: SageMaker endpoint
-Run [deploy_llava.ipynb](/sagemaker/deploy_source/deploy_llava.ipynb)
-Run [local_llava_infer.ipynb](/sagemaker/deploy_source/local_llava_infer.ipynb)
+### inference: SageMaker endpoint
+
+* inference llava1.5-13b on g5.12x, use huggingface container: Run [deploy_llava.ipynb](/sagemaker/deploy_source/deploy_llava.ipynb)
+* inference llava1.5-13b-4bit on g5.2x, use djl container: Run [02-llava-sagemaker-endpoint.ipynb](/sagemaker/deploy_djl/02-llava-sagemaker-endpoint.ipynb)
